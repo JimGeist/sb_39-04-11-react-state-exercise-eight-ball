@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# sb_39-04-11-react-state-exercise-eight-ball
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Assignment Details
 
-## Available Scripts
+Build a simulation of the [Magic Eight Ball](https://shop.mattel.com/shop/en-us/ms/magic-8-ball-retro-style-dhw39) toy with React.
 
-In the project directory, you can run:
+Initially, the Eight Ball has a black background color and "Think of a question" is initially displayed. Once you think of a question, clicking on the Magic Eight Ball magically reveals the answer to your question. 
 
-### `npm start`
+![Magic Eight Ball](./src/static/MagicEightBall.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The color of the Eight Ball also changes to match the mood of the answer -- green is typically for happy 'yes', goldenrod is for 'maybe' type answers and red is typically no. Magic Eight Ball is initially programmed with 20 answers.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+ 
+## Technology Stack
+- **Front-end**: ReactJS
+- **Back-end**: n/a
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Additional Details
 
-### `npm run build`
+**Enhancements**
+- **Further Study 1** *reset* and *record keeping* enhancements added to the Magic Eight Ball. An object was created to hold the three colors, the number of times the color appeared and the function name to update the number of times the color appeared. 
+```
+    const idx = getRandomIdx(answers.length);
+    ...
+    const ctrs = {
+        green: {
+            ctr: eightBallCtrGreen,
+            fx: setEightBallCtrGreen
+        },
+        goldenrod: {
+            ctr: eightBallCtrGoldenrod,
+            fx: setEightBallCtrGoldenrod
+        },
+        red: {
+            ctr: eightBallCtrRed,
+            fx: setEightBallCtrRed
+        }
+    }
+    ...
+    const newColor = answers[idx].color;
+    const currCtr = ctrs[newColor]["ctr"];
+    ctrs[newColor]["fx"](currCtr + 1);
+```
+An object was chosen as a better way to update the color stats than have if green / else if goldenrod / else red logic.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Difficulties**
+- Even with React, page layout and CSS with components not aligning as expected continue to annoy and eat up time! The issues probably related to 
+`position: absolute` on the `.EightBall-Main` class in order to get the message centered on the Eight Ball with the message class
+...
+.EightBall-Msg {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+```
+It all looked great until the reset button and stats were added. The 'workaround' was to create a div with a 350px top margin to force it below the Eight Ball. It is bothersome because just because it works does not make it right. BUT the stats are there and no special formatting was needed to get the numbers centered. The 'centering' of the button and counters was accomplished by manipulating margins.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
