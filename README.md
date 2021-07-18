@@ -48,7 +48,7 @@ An object was chosen as a better way to update the color stats than have if gree
 **Difficulties**
 - Even with React, page layout and CSS with components not aligning as expected continue to annoy and eat up time! The issues probably related to 
 `position: absolute` on the `.EightBall-Main` class in order to get the message centered on the Eight Ball with the message class
-...
+```
 .EightBall-Msg {
     margin: 0;
     position: absolute;
